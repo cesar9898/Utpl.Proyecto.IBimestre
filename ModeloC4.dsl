@@ -3,7 +3,7 @@ workspace "Plataforma de gestion de titulos"  {
     
     model {
         pEstudiante = person "clienteinterno"
-        pSecretaria = person "Secretaria de carrera"
+        pSecretaria = person "gerente"
         pPrencista = person "Prencista"
         
         sSenescyt = softwareSystem "Senescyt" {
