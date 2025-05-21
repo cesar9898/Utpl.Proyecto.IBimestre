@@ -1,8 +1,8 @@
 workspace "Plataforma de gestion de titulos"  {
-    description "Sistema de gestión de titulos"
+    description "Sistema de gestión de ordenes de produccion"
     
     model {
-        pEstudiante = person "Estudiante"
+        pEstudiante = person "clienteinterno"
         pSecretaria = person "Secretaria de carrera"
         pPrencista = person "Prencista"
         
