@@ -6,15 +6,17 @@ public class OrdenesDto {
     private String trabajo;
     private int cantidad;
     private String estado;
+    private String ordenId;
 
     public OrdenesDto() {
     }
 
-    public OrdenesDto(String cliente, String trabajo, int cantidad, String estado) {
+    public OrdenesDto(String cliente, String trabajo, int cantidad, String estado, String ordenId  ) {
         this.cliente = cliente;
         this.trabajo = trabajo;
         this.cantidad = cantidad;
         this.estado = estado;
+        this.ordenId = ordenId;
     }
 
     public String getCliente() {
@@ -48,5 +50,9 @@ public class OrdenesDto {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public String getOrdenId() {
+        return ordenId;
+    
     
 }
