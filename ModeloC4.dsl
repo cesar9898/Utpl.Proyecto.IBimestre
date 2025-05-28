@@ -2,11 +2,11 @@ workspace "Sistema de gestión de ordenes de produccion"  {
     description "Sistema de gestión de ordenes de produccion"
     
     model {
-        portalClienteExterno = person "clienteExterno"
+        personaClienteExterno = person "clienteExterno"
         pGerente = person "gerente"
         pclienteInterno = person "ClienteInterno"
         
-        sSenescyt = softwareSystem "Sistema de gestión de ordenes de produccion" {
+        sSistemaProduccion = softwareSystem "Sistema de gestión de ordenes de produccion" {
             tags "Software"
         }
         
@@ -15,21 +15,20 @@ workspace "Sistema de gestión de ordenes de produccion"  {
             
             portalClienteExterno = container "Pagina de visualización" {
                 tags "AppWeb"
-                pEstudiante  -> this "Visualiza estado de orden de produccion"
+                personaClienteExterno  -> this "Visualiza estado de orden de produccion"
             }
             
             portalClienteInterno = container "Pagina de ordenes de produccion" {
                 tags "AppWeb"
-                pClienteinterno -> this "crea orden produccion "
+                pclienteInterno -> this "crea orden produccion "
                 pGerente -> this "revisa reportes de ordenes de produccion"
             }
             
             api = container "API" {
                 tags "Api"
-                portalOrdenesProduccion -> this "Generacion"
+                portalClienteInterno -> this "Generacion"
                 portalClienteExterno -> this "Consulta"
-                this -> sSGerente "revisa reportes de ordenes de produccion"
-                
+                this -> sSistemaProduccion "revisa reportes de ordenes de produccion"
                 
                 emailComponente  = component "Email-componente" "Envia notificaciones a los clientes finales"
                 
@@ -41,9 +40,6 @@ workspace "Sistema de gestión de ordenes de produccion"  {
                 api -> this "Obtener/Crear/Actualizar/Eliminar"
             }
         }
-        
-    
-        
     }
     
     views {
