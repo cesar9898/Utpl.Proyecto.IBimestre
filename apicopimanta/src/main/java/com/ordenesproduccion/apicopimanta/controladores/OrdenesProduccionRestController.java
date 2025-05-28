@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-public class OrdenesProduccionRestController {
-   
 @RestController
 @RequestMapping ("/api/ordenes-produccion")
 public class OrdenesProduccionRestController {
@@ -18,7 +16,7 @@ public class OrdenesProduccionRestController {
     public String obtenerOrdenes() {
         return "Lista de órdenes de producción";
     } 
-    // Endpoint para crear una nueva orden de producción con datos
+    // Endpoint para crear una nueva orden de producción con datos ficticios
     @PostMapping("/ordenes")
     public Map<String, Object> crearOrden() {
         Map<String, Object> respuesta = new HashMap<>();
