@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ApicopimantaApplication<apicopimanta>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.ordenesproduccion.apicopimanta.ApicopimantaApplication",
+            "projectName": "apicopimanta",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
