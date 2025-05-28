@@ -2,9 +2,9 @@ workspace "Sistema de gestión de ordenes de produccion"  {
     description "Sistema de gestión de ordenes de produccion"
     
     model {
-        pEstudiante = person "clienteinterno"
-        pSecretaria = person "gerente"
-        pPrencista = person "Prencista"
+        portalClienteExterno = person "clienteExterno"
+        pGerente = person "gerente"
+        pclienteInterno = person "ClienteInterno"
         
         sSenescyt = softwareSystem "Sistema de gestión de ordenes de produccion" {
             tags "Software"
@@ -13,22 +13,22 @@ workspace "Sistema de gestión de ordenes de produccion"  {
         sGestion = softwareSystem "Plataforma de gestion" {
             tags "SistemaGestion"
             
-            portalEstudiante = container "Pagina de visualización" {
+            portalClienteExterno = container "Pagina de visualización" {
                 tags "AppWeb"
-                pEstudiante  -> this "Visualiza el título"
+                pEstudiante  -> this "Visualiza estado de orden de produccion"
             }
             
-            portalAdministracion = container "Pagina de administración" {
+            portalClienteInterno = container "Pagina de ordenes de produccion" {
                 tags "AppWeb"
-                pSecretaria -> this "Generación de título"
-                pPrencista -> this "Imprime el título"
+                pClienteinterno -> this "crea orden produccion "
+                pGerente -> this "revisa reportes de ordenes de produccion"
             }
             
             api = container "API" {
                 tags "Api"
-                portalAdministracion -> this "Generacion/Impresion"
-                portalEstudiante -> this "Consulta"
-                this -> sSenescyt "Autorizar"
+                portalOrdenesProduccion -> this "Generacion"
+                portalClienteExterno -> this "Consulta"
+                this -> sSGerente "revisa reportes de ordenes de produccion"
                 
                 
                 emailComponente  = component "Email-componente" "Envia notificaciones a los clientes finales"
