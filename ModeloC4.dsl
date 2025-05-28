@@ -1,4 +1,4 @@
-workspace "Plataforma de gestion de titulos"  {
+workspace "Sistema de gestión de ordenes de produccion"  {
     description "Sistema de gestión de ordenes de produccion"
     
     model {
@@ -6,7 +6,7 @@ workspace "Plataforma de gestion de titulos"  {
         pSecretaria = person "gerente"
         pPrencista = person "Prencista"
         
-        sSenescyt = softwareSystem "Senescyt" {
+        sSenescyt = softwareSystem "Sistema de gestión de ordenes de produccion" {
             tags "Software"
         }
         
@@ -31,9 +31,9 @@ workspace "Plataforma de gestion de titulos"  {
                 this -> sSenescyt "Autorizar"
                 
                 
-                emailComponente  = component "Email-componente" "Envia notificaciones a los estudiantes"
+                emailComponente  = component "Email-componente" "Envia notificaciones a los clientes finales"
                 
-                incresoComponente = component "Controlador de ingreso" "Permite el ingreso a los usuarios"
+                incresoComponente = component "Controlador de ingreso" "Permite el ingreso a los clientes internos"
             }
             
             basedatos = container "Base de datos" {
