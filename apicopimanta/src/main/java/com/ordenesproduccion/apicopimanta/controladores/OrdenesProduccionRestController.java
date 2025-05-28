@@ -1,13 +1,20 @@
 package com.ordenesproduccion.apicopimanta.controladores;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.ordenesproduccion.apicopimanta.dtos.OrdenesDto;
 
 @RestController
 @RequestMapping ("/api/ordenes-produccion")
@@ -47,7 +54,7 @@ public class OrdenesProduccionRestController {
         respuesta.put("cliente", cliente);
         respuesta.put("trabajos", trabajos);
         respuesta.put("estado", "Creada");
-        respuesta.put("fechaCreacion", new Date());
+        respuesta.put("fechaCreacion", new Date(0));
 
         return respuesta;
     }
@@ -86,7 +93,7 @@ public class OrdenesProduccionRestController {
         respuesta.put("trabajo", ordenActualizada.getTrabajo());
         respuesta.put("cantidad", ordenActualizada.getCantidad());
         respuesta.put("estado", ordenActualizada.getEstado());
-        respuesta.put("fechaActualizacion", new Date());
+        respuesta.put("fechaActualizacion", new Date(0));
 
         return respuesta;
     }

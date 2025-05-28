@@ -53,6 +53,5 @@ public class OrdenesDto {
 
     public String getOrdenId() {
         return ordenId;
-    
-    
+    }
 }
