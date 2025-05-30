@@ -59,7 +59,7 @@ public class OrdenesProduccionRestController {
         return respuesta;
     }
        // endpoint para enlistar los estados y su ID de las órdenes de producción
-    @GetMapping("/estados")
+    @GetMapping("")
     public List<Map<String, Object>> obtenerEstados() {
         List<Map<String, Object>> estados = new ArrayList<>();
 
