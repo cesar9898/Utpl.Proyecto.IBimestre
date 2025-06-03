@@ -19,10 +19,12 @@ import com.ordenesproduccion.apicopimanta.dtos.OrdenesDto;
 @RestController
 @RequestMapping ("/api/ordenes-produccion")
 public class OrdenesProduccionRestController {
-    @GETMapping("/ordenes")
+    
+    @GetMapping("/ordenes")
     public String obtenerOrdenes() {
         return "Lista de órdenes de producción";
-    } 
+    }
+
     // Endpoint para crear una nueva orden de producción con datos ficticios
     @PostMapping("/ordenes")
     public Map<String, Object> crearOrden() {
@@ -59,7 +61,8 @@ public class OrdenesProduccionRestController {
         return respuesta;
     }
        // endpoint para enlistar los estados y su ID de las órdenes de producción
-    @GetMapping("")
+    
+    @GetMapping("/estados")
     public List<Map<String, Object>> obtenerEstados() {
         List<Map<String, Object>> estados = new ArrayList<>();
 
