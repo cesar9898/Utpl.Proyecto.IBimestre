@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,11 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ordenesproduccion.apicopimanta.dtos.OrdenesDto;
+import com.ordenesproduccion.apicopimanta.entidades.Orden;
+import com.ordenesproduccion.apicopimanta.servicios.OrdenService;
 
 @RestController
-@RequestMapping ("/api/ordenes-produccion")
+@RequestMapping("/api/ordenes-produccion")
 public class OrdenesProduccionRestController {
-    
+    @Autowired
+    private OrdenService ordenService;
+
     @GetMapping("/ordenes")
     public String obtenerOrdenes() {
         return "Lista de órdenes de producción";
@@ -51,7 +56,7 @@ public class OrdenesProduccionRestController {
         trabajos.add(trabajo1);
         trabajos.add(trabajo2);
 
-        // Orden de producción 
+        // Orden de producción
         respuesta.put("ordenId", "456");
         respuesta.put("cliente", cliente);
         respuesta.put("trabajos", trabajos);
@@ -60,8 +65,8 @@ public class OrdenesProduccionRestController {
 
         return respuesta;
     }
-       // endpoint para enlistar los estados y su ID de las órdenes de producción
-    
+    // endpoint para enlistar los estados y su ID de las órdenes de producción
+
     @GetMapping("/estados")
     public List<Map<String, Object>> obtenerEstados() {
         List<Map<String, Object>> estados = new ArrayList<>();
@@ -83,13 +88,14 @@ public class OrdenesProduccionRestController {
         estados.add(estado3);
 
         return estados;
-   
+
     }
-        // Endpoint para actualizar datos de una orden de producción
+
+    // Endpoint para actualizar datos de una orden de producción
     @PutMapping("/ordenes/{id}")
     public Map<String, Object> actualizarOrden(@PathVariable String id, @RequestBody OrdenesDto ordenActualizada) {
         Map<String, Object> respuesta = new HashMap<>();
-        
+
         // Simulación de actualización de la orden
         respuesta.put("ordenId", id);
         respuesta.put("cliente", ordenActualizada.getCliente());
@@ -100,8 +106,17 @@ public class OrdenesProduccionRestController {
 
         return respuesta;
     }
-    
 
-
+    // Obtener ordenes por correo
+    @GetMapping("/busqueda/{correo}")
+    public List<Orden> getListaOrdenByCorreo(@PathVariable String correo) {
+        var ordenes = ordenService.BuscarPorCorreo(correo);
+        if (ordenes.isEmpty()) {
+            return null; // O lanzar una excepción si no se encuentra
+        }
+        System.out.println("obteniendo ordenes por correo: " + correo);
+        // Retornar ordenes por email encontrado
+        return ordenes;
+    }
 
 }
