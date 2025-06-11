@@ -117,6 +117,56 @@ public class OrdenesProduccionRestController {
         System.out.println("obteniendo ordenes por correo: " + correo);
         // Retornar ordenes por email encontrado
         return ordenes;
+
+
+
+
+
     }
+
+    // Obtener ordenes por razon social
+    @GetMapping("/busqueda/razon-social/{razonSocial}")
+    public List<Orden> getListaOrdenByRazonSocial(@PathVariable String razonSocial) {
+        var ordenes = ordenService.BuscarPorRazonSocial(razonSocial);
+        if (ordenes.isEmpty()) {
+            return null; // O lanzar una excepción si no se encuentra
+        }
+        System.out.println("obteniendo ordenes por razon social: " + razonSocial);
+        // Retornar ordenes por razon social encontrado
+        return ordenes;
+    }
+    // Obtener ordenes por ruc
+    @GetMapping("/busqueda/ruc/{ruc}")
+    public List<Orden> getListaOrdenByRuc(@PathVariable String ruc) {
+        var ordenes = ordenService.BuscarPorRuc(ruc);
+        if (ordenes.isEmpty()) {
+            return null; // O lanzar una excepción si no se encuentra
+        }
+        System.out.println("obteniendo ordenes por ruc: " + ruc);
+        // Retornar ordenes por ruc encontrado
+        return ordenes;
+    }
+    // Obtener ordenes por estado
+    @GetMapping("/busqueda/estado/{estado}")
+    public List<Orden> getListaOrdenByEstado(@PathVariable String estado) {
+        var ordenes = ordenService.BuscarPorEstado(estado);
+        if (ordenes.isEmpty()) {
+            return null; // O lanzar una excepción si no se encuentra
+        }
+        System.out.println("obteniendo ordenes por estado: " + estado);
+        // Retornar ordenes por estado encontrado
+        return ordenes;
+    }
+    // Obtener ordenes por fecha de entrega
+    @GetMapping("/busqueda/fecha-entrega/{fechaEntrega}")
+    public List<Orden> getListaOrdenByFechaEntrega(@PathVariable String fechaEntrega) {
+        var ordenes = ordenService.BuscarPorFechaEntrega(fechaEntrega);
+        if (ordenes.isEmpty()) {
+            return null; // O lanzar una excepción si no se encuentra
+        }
+        System.out.println("obteniendo ordenes por fecha de entrega: " + fechaEntrega);
+        // Retornar ordenes por fecha de entrega encontrado
+        return ordenes;     
+
 
 }
