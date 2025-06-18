@@ -20,9 +20,9 @@ public class Orden  implements Serializable{
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
   
-  private String fecha_inicio;
+  private String fechaInicio;
   
-  private String razon_social;
+  private String razonSocial;
   
   private String ruc;
 
@@ -30,19 +30,19 @@ public class Orden  implements Serializable{
 
   private String telefono;
 
-  private String tipo_de_trabajo;
+  private String tipoDeTrabajo;
 
   private String cantidad;
 
   private String acabado;
 
-  private double precio_total;
+  private double precioTotal;
 
-  private String estado_factura;
+  private String estadoFactura;
 
   private String estado;
 
-  private String fecha_entrega;
+  private String fechaEntrega;
   
 
  
