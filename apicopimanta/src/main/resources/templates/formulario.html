@@ -1,0 +1,66 @@
+<!-- formulario.html -->
+<form id="ordenForm">
+    <label>Cliente:</label>
+    <input type="text" name="razonSocial" required>
+    <label>RUC:</label>
+    <input type="text" name="ruc" required>
+    <label>Email:</label>
+    <input type="email" name="email" required>
+    <label>Teléfono:</label>
+    <input type="text" name="telefono" required>
+    <label>Acabado:</label>
+    <input type="text" name="acabado" required>
+    <label>Tipo de Trabajo:</label>
+    <input type="text" name="tipoDeTrabajo" required>
+    <label>Cantidad:</label>
+    <input type="number" name="cantidad" required>
+    <label>Estado Factura:</label>
+    <input type="text" name="estadoFactura" required>
+    <label>Estado Orden:</label>
+    <input type="text" name="estadoOrden" required>
+    <label>Fecha Inicio:</label>
+    <input type="date" name="fechaInicio" required>
+    <label>Fecha Entrega:</label>
+    <input type="date" name="fechaEntrega" required>
+    <button type="submit">Crear Orden</button>
+</form>
+
+<script>
+document.getElementById('ordenForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const data = {
+        razonSocial: form.razonSocial.value,
+        ruc: form.ruc.value,
+        email: form.email.value,
+        telefono: form.telefono.value,
+        acabado: form.acabado.value,
+        tipoDeTrabajo: form.tipoDeTrabajo.value,
+        cantidad: form.cantidad.value,
+        estadoFactura: form.estadoFactura.value,
+        estadoOrden: form.estadoOrden.value,
+        fechaInicio: form.fechaInicio.value,
+        fechaEntrega: form.fechaEntrega.value
+    };
+
+    fetch('/api/ordenes-produccion/Crear-Ordenes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('Orden creada exitosamente');
+            form.reset();
+        } else {
+            alert('Error al crear la orden');
+        }
+    })
+    .catch(error => {
+        alert('Error de red');
+    });
+});
+</script>

@@ -18,7 +18,7 @@ import jakarta.persistence.Id;
 public class Orden  implements Serializable{
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private Integer Ordenid;
   
   private String fechaInicio;
   
@@ -40,7 +40,7 @@ public class Orden  implements Serializable{
 
   private String estadoFactura;
 
-  private String estado;
+  private String estadoDeOrden;
 
   private String fechaEntrega;
   
