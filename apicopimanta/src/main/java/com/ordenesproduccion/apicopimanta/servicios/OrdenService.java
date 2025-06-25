@@ -25,7 +25,7 @@ public class OrdenService implements IOrdenService {
         return ordenRepositorio.findByRuc(ruc);
     }
     public List<Orden> BuscarPorEstado(String estado) {
-        return ordenRepositorio.findByEstado(estado);
+        return ordenRepositorio.findByEstadoDeOrden(estado);
     }
     public List<Orden> BuscarPorFechaEntrega(String fechaEntrega) {
         return ordenRepositorio.findByFechaEntrega(fechaEntrega);
@@ -36,7 +36,7 @@ public class OrdenService implements IOrdenService {
     }
     public OrdenesDto guardarOrden(OrdenesDto ordenesDto) {
         Orden orden = new Orden();
-        orden.setOrdenid(Integer.parseInt(ordenesDto.getOrdenId()));
+       
         orden.setFechaInicio(ordenesDto.getFechaInicio());
         orden.setFechaEntrega(ordenesDto.getFechaEntrega());
         orden.setRazonSocial(ordenesDto.getRazonSocial());
@@ -45,11 +45,15 @@ public class OrdenService implements IOrdenService {
         orden.setTelefono(ordenesDto.getTelefono());
         orden.setAcabado(ordenesDto.getAcabado());
         orden.setTipoDeTrabajo(ordenesDto.getTipoDeTrabajo());
-        orden.setCantidad(String.valueOf(ordenesDto.getCantidad()));
+        orden.setCantidad(ordenesDto.getCantidad());
         orden.setEstadoFactura(ordenesDto.getEstadoFactura());
         orden.setEstadoDeOrden(ordenesDto.getEstadoOrden());
         ordenRepositorio.save(orden);
         return ordenesDto;
+    }
+    public Orden buscarPorId(String id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'buscarPorId'");
     }
 
 }

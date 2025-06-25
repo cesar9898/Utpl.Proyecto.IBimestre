@@ -12,8 +12,8 @@ public interface OrdenRepositorio extends JpaRepository<Orden, Integer> {
       public List<Orden> findByEmail(String email);
       public List<Orden> findByRazonSocial(String razonSocial);
       public List<Orden> findByRuc(String ruc);
-      public List<Orden> findByEstado(String estado);
+      public List<Orden> findByEstadoDeOrden(String estado);
       public List<Orden> findByFechaEntrega(String fechaEntrega);
       public List<Orden> findByTipoDeTrabajo(String tipoDeTrabajo);
-
+      public List<Orden> findByTipoDeTrabajoAndEstadoDeOrden(String tipoDeTrabajo, String estadoDeOrden);
 }

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ordenesproduccion.apicopimanta.dtos.OrdenesDto;
 import com.ordenesproduccion.apicopimanta.entidades.Orden;
+import com.ordenesproduccion.apicopimanta.servicios.EmailService;
 import com.ordenesproduccion.apicopimanta.servicios.OrdenService;
 
 @RestController
@@ -28,55 +29,47 @@ import com.ordenesproduccion.apicopimanta.servicios.OrdenService;
 public class OrdenesProduccionRestController {
     @Autowired
     private OrdenService ordenService;
+    @Autowired
+    private EmailService emailService;
 
     @GetMapping("/ordenes")
     public String obtenerOrdenes() {
         return "Lista de órdenes de producción";
     }
 
-    // Endpoint para ingresar datos desde la pantalla de órdenes de producción       
-    @PostMapping("/ordenes-produccion/Crear-Ordenes")
+    // Endpoint para ingresar datos desde la pantalla de órdenes de producción
+    @PostMapping("/ordenes-produccion/crear-Ordenes")
     public ResponseEntity<OrdenesDto> crearOrden(@RequestBody OrdenesDto ordenesDto) {
         OrdenesDto CrearOrden = ordenService.guardarOrden(ordenesDto);
+        emailService.enviarCorreo(ordenesDto.getEmail(), "Nueva Orden Creada",
+                "Se ha creado una nueva orden: " + CrearOrden);
         return ResponseEntity.status(HttpStatus.CREATED).body(CrearOrden);
 
     }
 
     @GetMapping("/ordenes-produccion/formulario")
     public String mostrarFormulario() {
-    return "formulario"; // nombre del archivo sin .html
+        return "formulario"; // nombre del archivo sin .html
     }
-
 
     // endpoint para enlistar los estados y su ID de las órdenes de producción
 
-    @GetMapping("/estados")
-    public List<Map<String, Object>> obtenerEstados() {
-        List<Map<String, Object>> estados = new ArrayList<>();
-
-        Map<String, Object> estado1 = new HashMap<>();
-        estado1.put("id", 1);
-        estado1.put("nombre", "Pendiente");
-
-        Map<String, Object> estado2 = new HashMap<>();
-        estado2.put("id", 2);
-        estado2.put("nombre", "En proceso");
-
-        Map<String, Object> estado3 = new HashMap<>();
-        estado3.put("id", 3);
-        estado3.put("nombre", "Completada");
-
-        estados.add(estado1);
-        estados.add(estado2);
-        estados.add(estado3);
-
-        return estados;
-
+    @GetMapping("/ordenes/{id}/resumen")
+    public ResponseEntity<Map<String, Object>> getEstadoYRazonSocialPorId(@PathVariable String id) {
+        Orden orden = ordenService.buscarPorId(id);
+        if (orden == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        Map<String, Object> respuesta = new HashMap<>();
+        respuesta.put("razonSocial", orden.getRazonSocial());
+        respuesta.put("estado", orden.getEstadoDeOrden());
+        return ResponseEntity.ok(respuesta);
     }
 
     // Endpoint para actualizar datos de una orden de producción
     @PutMapping("/ordenes/{id}")
-    public Map<String, Object> actualizarOrden(@PathVariable String id, @RequestBody OrdenesDto ordenActualizada, OrdenesDto ordenesDto, String string) {
+    public Map<String, Object> actualizarOrden(@PathVariable String id, @RequestBody OrdenesDto ordenActualizada,
+            OrdenesDto ordenesDto, String string) {
         Map<String, Object> respuesta = new HashMap<>();
 
         // Simulación de actualización de la orden
@@ -84,8 +77,8 @@ public class OrdenesProduccionRestController {
         respuesta.put("rasonSocial", ordenActualizada.getRazonSocial());
         respuesta.put("trabajo", ordenActualizada.getTipoDeTrabajo());
         respuesta.put("estadoFactura", ordenActualizada.getEstadoFactura());
-        respuesta.put("estadoOrden", ordenActualizada.getEstadoOrden()); 
-        respuesta.put(string, ordenesDto.getFechaEntrega());   
+        respuesta.put("estadoOrden", ordenActualizada.getEstadoOrden());
+        respuesta.put(string, ordenesDto.getFechaEntrega());
         respuesta.put("fechaActualizacion", new Date(0));
 
         return respuesta;
@@ -102,10 +95,6 @@ public class OrdenesProduccionRestController {
         // Retornar ordenes por email encontrado
         return ordenes;
 
-
-
-
-
     }
 
     // Obtener ordenes por razon social
@@ -119,6 +108,7 @@ public class OrdenesProduccionRestController {
         // Retornar ordenes por razon social encontrado
         return ordenes;
     }
+
     // Obtener ordenes por ruc
     @GetMapping("/busqueda/ruc/{ruc}")
     public List<Orden> getListaOrdenByRuc(@PathVariable String ruc) {
@@ -130,6 +120,7 @@ public class OrdenesProduccionRestController {
         // Retornar ordenes por ruc encontrado
         return ordenes;
     }
+
     // Obtener ordenes por estado
     @GetMapping("/busqueda/estado/{estado}")
     public List<Orden> getListaOrdenByEstado(@PathVariable String estado) {
@@ -141,6 +132,7 @@ public class OrdenesProduccionRestController {
         // Retornar ordenes por estado encontrado
         return ordenes;
     }
+
     // Obtener ordenes por fecha de entrega
     @GetMapping("/busqueda/fecha-entrega/{fechaEntrega}")
     public List<Orden> getListaOrdenByFechaEntrega(@PathVariable String fechaEntrega) {
@@ -150,8 +142,7 @@ public class OrdenesProduccionRestController {
         }
         System.out.println("obteniendo ordenes por fecha de entrega: " + fechaEntrega);
         // Retornar ordenes por fecha de entrega encontrado
-        return ordenes;     
-
+        return ordenes;
 
     }
 
