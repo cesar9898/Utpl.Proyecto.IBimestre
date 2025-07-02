@@ -24,8 +24,11 @@ import com.ordenesproduccion.apicopimanta.entidades.Orden;
 import com.ordenesproduccion.apicopimanta.servicios.EmailService;
 import com.ordenesproduccion.apicopimanta.servicios.OrdenService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("/api/ordenes-produccion")
+
 public class OrdenesProduccionRestController {
     @Autowired
     private OrdenService ordenService;
@@ -38,6 +41,7 @@ public class OrdenesProduccionRestController {
     }
 
     // Endpoint para ingresar datos desde la pantalla de órdenes de producción
+    @Operation(summary = "ingresar datos de órdenes de producción")
     @PostMapping("/ordenes-produccion/crear-Ordenes")
     public ResponseEntity<OrdenesDto> crearOrden(@RequestBody OrdenesDto ordenesDto) {
         OrdenesDto CrearOrden = ordenService.guardarOrden(ordenesDto);
@@ -54,6 +58,7 @@ public class OrdenesProduccionRestController {
 
     // endpoint para enlistar los estados y su ID de las órdenes de producción
 
+    @Operation(summary = "enlistar los estados y su ID de las órdenes de producción")
     @GetMapping("/ordenes/{id}/resumen")
     public ResponseEntity<Map<String, Object>> getEstadoYRazonSocialPorId(@PathVariable String id) {
         Orden orden = ordenService.buscarPorId(id);
@@ -67,6 +72,7 @@ public class OrdenesProduccionRestController {
     }
 
     // Endpoint para actualizar datos de una orden de producción
+    @Operation(summary = "actualizar datos de una orden de producción")
     @PutMapping("/ordenes/{id}")
     public Map<String, Object> actualizarOrden(@PathVariable String id, @RequestBody OrdenesDto ordenActualizada,
             OrdenesDto ordenesDto, String string) {
@@ -84,20 +90,10 @@ public class OrdenesProduccionRestController {
         return respuesta;
     }
 
-    // Obtener ordenes por correo
-    @GetMapping("/busqueda/{correo}")
-    public List<Orden> getListaOrdenByCorreo(@PathVariable String correo) {
-        var ordenes = ordenService.BuscarPorCorreo(correo);
-        if (ordenes.isEmpty()) {
-            return null; // O lanzar una excepción si no se encuentra
-        }
-        System.out.println("obteniendo ordenes por correo: " + correo);
-        // Retornar ordenes por email encontrado
-        return ordenes;
-
-    }
+    
 
     // Obtener ordenes por razon social
+    @Operation(summary = "obtener ordenes por razon social")
     @GetMapping("/busqueda/razon-social/{razonSocial}")
     public List<Orden> getListaOrdenByRazonSocial(@PathVariable String razonSocial) {
         var ordenes = ordenService.BuscarPorRazonSocial(razonSocial);
@@ -110,6 +106,7 @@ public class OrdenesProduccionRestController {
     }
 
     // Obtener ordenes por ruc
+    @Operation(summary = "obtener ordenes por ruc")
     @GetMapping("/busqueda/ruc/{ruc}")
     public List<Orden> getListaOrdenByRuc(@PathVariable String ruc) {
         var ordenes = ordenService.BuscarPorRuc(ruc);
@@ -122,6 +119,7 @@ public class OrdenesProduccionRestController {
     }
 
     // Obtener ordenes por estado
+    @Operation(summary = "obtener ordenes por estado")
     @GetMapping("/busqueda/estado/{estado}")
     public List<Orden> getListaOrdenByEstado(@PathVariable String estado) {
         var ordenes = ordenService.BuscarPorEstado(estado);
@@ -134,6 +132,7 @@ public class OrdenesProduccionRestController {
     }
 
     // Obtener ordenes por fecha de entrega
+    @Operation(summary = "obtener ordenes por fecha de entrega")
     @GetMapping("/busqueda/fecha-entrega/{fechaEntrega}")
     public List<Orden> getListaOrdenByFechaEntrega(@PathVariable String fechaEntrega) {
         var ordenes = ordenService.BuscarPorFechaEntrega(fechaEntrega);
