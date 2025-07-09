@@ -3,6 +3,7 @@ package com.ordenesproduccion.apicopimanta.servicios;
 import java.util.List;
 
 import com.ordenesproduccion.apicopimanta.dtos.OrdenesDto;
+import com.ordenesproduccion.apicopimanta.dtos.OrdenesDtoV2;
 import com.ordenesproduccion.apicopimanta.entidades.Orden;
 
 public interface IOrdenService {
@@ -15,6 +16,6 @@ public interface IOrdenService {
     public List<Orden> BuscarPorTipoDeTrabajo(String tipoDeTrabajo);
     public OrdenesDto guardarOrden(OrdenesDto ordenesDto); 
 
-
+    public OrdenesDtoV2 guardarOrdenV2(OrdenesDtoV2 ordenesDtoV2); 
 
 }

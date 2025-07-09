@@ -49,6 +49,12 @@ public class Orden implements Serializable {
 
   private String fechaEntrega;
 
+   private int alto;
+
+  private int ancho;
+
+  private int total;
+
   public Object getEstado() {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'getEstado'");

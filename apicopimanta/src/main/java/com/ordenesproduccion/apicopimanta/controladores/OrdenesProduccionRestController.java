@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ordenesproduccion.apicopimanta.dtos.OrdenesDto;
+import com.ordenesproduccion.apicopimanta.dtos.OrdenesDtoV2;
 import com.ordenesproduccion.apicopimanta.entidades.Orden;
 import com.ordenesproduccion.apicopimanta.servicios.EmailService;
 import com.ordenesproduccion.apicopimanta.servicios.OrdenService;
@@ -42,10 +43,21 @@ public class OrdenesProduccionRestController {
 
     // Endpoint para ingresar datos desde la pantalla de órdenes de producción
     @Operation(summary = "ingresar datos de órdenes de producción")
-    @PostMapping("/ordenes-produccion/crear-Ordenes")
+    @PostMapping("/ordenes-produccion/crear-Ordenes/v1")
     public ResponseEntity<OrdenesDto> crearOrden(@RequestBody OrdenesDto ordenesDto) {
         OrdenesDto CrearOrden = ordenService.guardarOrden(ordenesDto);
         emailService.enviarCorreo(ordenesDto.getEmail(), "Nueva Orden Creada",
+                "Se ha creado una nueva orden: " + CrearOrden);
+        return ResponseEntity.status(HttpStatus.CREATED).body(CrearOrden);
+
+    }
+
+    // Endpoint para ingresar datos desde la pantalla de órdenes de producción
+    @Operation(summary = "ingresar datos de órdenes de producción")
+    @PostMapping("/ordenes-produccion/crear-Ordenes/v2")
+    public ResponseEntity<OrdenesDtoV2> crearOrdenV2(@RequestBody OrdenesDtoV2 ordenesDtoV2) {
+        OrdenesDtoV2 CrearOrden = ordenService.guardarOrdenV2(ordenesDtoV2);
+        emailService.enviarCorreo(ordenesDtoV2.getEmail(), "Nueva Orden Creada",
                 "Se ha creado una nueva orden: " + CrearOrden);
         return ResponseEntity.status(HttpStatus.CREATED).body(CrearOrden);
 
