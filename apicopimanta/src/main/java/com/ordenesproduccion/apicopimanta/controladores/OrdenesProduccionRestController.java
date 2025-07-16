@@ -37,8 +37,14 @@ public class OrdenesProduccionRestController {
     private EmailService emailService;
 
     @GetMapping("/ordenes")
-    public String obtenerOrdenes() {
-        return "Lista de órdenes de producción";
+    public List<Orden> listarTodasLasOrdenes(@RequestBody String razonSocial) {
+         List<Orden> ordenes = ordenService.BuscarPorRazonSocial(razonSocial);
+        if (ordenes.isEmpty()) {
+            return null; // O lanzar una excepción si no se encuentra
+        }
+        System.out.println("obteniendo ordenes por razon social: " + razonSocial);
+        // Retornar ordenes por razon social encontrado
+        return ordenes;
     }
 
     // Endpoint para ingresar datos desde la pantalla de órdenes de producción

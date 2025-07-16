@@ -14,6 +14,7 @@ public interface IOrdenService {
     public List<Orden> BuscarPorEstado(String estado);
     public List<Orden> BuscarPorFechaEntrega(String fechaEntrega);
     public List<Orden> BuscarPorTipoDeTrabajo(String tipoDeTrabajo);
+    public List<Orden> listarTodasLasOrdenes();
     public OrdenesDto guardarOrden(OrdenesDto ordenesDto); 
 
     public OrdenesDtoV2 guardarOrdenV2(OrdenesDtoV2 ordenesDtoV2); 

@@ -57,10 +57,13 @@ public class OrdenService implements IOrdenService {
         return ordenRepositorio.findByFechaEntrega(fechaEntrega);
     }
 
-    public List<Orden> BuscarPorTipoDeTrabajo(String tipoDeTrabajo) {
-        return ordenRepositorio.findByTipoDeTrabajo(tipoDeTrabajo);
+public List<Orden> BuscarPorTipoDeTrabajo(String tipoDeTrabajo) {
+    return ordenRepositorio.findByTipoDeTrabajo(tipoDeTrabajo);
+}
 
-    }
+public List<Orden> listarTodasLasOrdenes() {
+    return ordenRepositorio.findAll();
+}
 
     public OrdenesDto guardarOrden(OrdenesDto ordenesDto) {
         Orden orden = new Orden();
