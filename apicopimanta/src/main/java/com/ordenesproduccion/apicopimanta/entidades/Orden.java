@@ -55,9 +55,5 @@ public class Orden implements Serializable {
 
   private int total;
 
-  public Object getEstado() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getEstado'");
-  }
 
 }

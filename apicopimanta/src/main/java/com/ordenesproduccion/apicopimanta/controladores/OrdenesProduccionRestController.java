@@ -37,12 +37,12 @@ public class OrdenesProduccionRestController {
     private EmailService emailService;
 
     @GetMapping("/ordenes")
-    public List<Orden> listarTodasLasOrdenes(@RequestBody String razonSocial) {
-         List<Orden> ordenes = ordenService.BuscarPorRazonSocial(razonSocial);
+    @Operation(summary = "listar todas las órdenes de producción")
+    public List<Orden> listarTodasLasOrdenes() {
+        List<Orden> ordenes = ordenService.listarTodasLasOrdenes();
         if (ordenes.isEmpty()) {
             return null; // O lanzar una excepción si no se encuentra
         }
-        System.out.println("obteniendo ordenes por razon social: " + razonSocial);
         // Retornar ordenes por razon social encontrado
         return ordenes;
     }
@@ -107,8 +107,6 @@ public class OrdenesProduccionRestController {
 
         return respuesta;
     }
-
-    
 
     // Obtener ordenes por razon social
     @Operation(summary = "obtener ordenes por razon social")

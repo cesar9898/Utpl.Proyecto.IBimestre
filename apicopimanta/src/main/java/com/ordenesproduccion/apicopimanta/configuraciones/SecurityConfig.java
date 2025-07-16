@@ -1,4 +1,4 @@
-package com.ordenesproduccion.apicopimanta.controladores.configuraciones;
+package com.ordenesproduccion.apicopimanta.configuraciones;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
